@@ -43,13 +43,18 @@ $rottenTomatoesConfig = array(
 // predefined search keywords
 $keywords = array(
     'red',
-    //'green',
-    //'blue',
-    //'yellow',
+    'green',
+    'blue',
+    'yellow',
 );
 
 $rottenTomatoObj = new RottenTomatoes( $rottenTomatoesConfig );
-$searchResults = $rottenTomatoObj->search( implode( ' ', $keywords ) );
+$searchResults = array();
+
+foreach( $keywords as $keyword ) {
+    $searchResults[$keyword] = $rottenTomatoObj->search( $keyword );
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -61,55 +66,42 @@ $searchResults = $rottenTomatoObj->search( implode( ' ', $keywords ) );
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
-    <?php if ( $searchResults !== NULL ): ?>
-        <?php if ( $searchResults->total > 0 ): ?>
 
-            <div class="datagrid">
-                <h1>Rotten Tomato Movie Search</h1>
-                <h2>Search results for movies containing any of the following words: red, green, blue or yellow.</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Year</th>
-                            <th>Runtime</th>
-                        </tr>
-                    </thead>
+    <h1>Rotten Tomato Movie Search</h1>
+        <?php foreach ( $searchResults as $keyword => $result ): ?>
+            <?php if ( $result !== NULL ): ?>
+                <h2>Search results for movies containing <em><?php echo $keyword; ?></em>.</h2>
+                <?php if ( $result->total > 0 ): ?>
+                    <div class="styledTable">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Year</th>
+                                    <th>Runtime</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    foreach( $result->movies as $movie ):
+                                    $movieTitle = str_ireplace ( $keyword , '<span class="extract">' . $keyword . '</span>', $movie->title );
+                                ?>
+                                <tr>
+                                    <td><?php echo $movieTitle; ?></td>
+                                    <td><?php echo $movie->year ?></td>
+                                    <td><?php echo $movie->runtime ?> minutes</td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                <?php else: ?>
+                    <p align="center">No results found</p>
+                <?php endif; ?>
 
-                    <tfoot>
-                        <tr>
-                            <td colspan="3">
-                                <div id="paging">
-                                    <ul>
-                                        <li><a href="#"><span>Previous</span></a></li>
-                                        <li><a href="#" class="active"><span>1</span></a></li>
-                                        <li><a href="#"><span>2</span></a></li>
-                                        <li><a href="#"><span>3</span></a></li>
-                                        <li><a href="#"><span>4</span></a></li>
-                                        <li><a href="#"><span>5</span></a></li>
-                                        <li><a href="#"><span>Next</span></a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php $ctr = 0;
-                            foreach( $searchResults->movies as $movie ): ?>
-                        <tr <?php if ( $ctr++ % 2 == 1 ): ?>class="alt" <?php endif; ?> >
-                            <td><?php echo $movie->title ?></td>
-                            <td><?php echo $movie->year ?></td>
-                            <td><?php echo $movie->runtime ?> minutes</td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php else: ?>
-            <p>No results found</p>
-        <?php endif; ?>
-    <?php else: ?>
-    <p>Error parsing json</p>
-    <?php endif; ?>
+            <?php else: ?>
+            <p>Error parsing json</p>
+            <?php endif; ?>
+        <?php endforeach; ?>
   </body>
 </html>
