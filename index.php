@@ -1,3 +1,5 @@
+<?php require 'main.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +11,7 @@
   <body>
     <h1>Hello, world!</h1>
 
-    <p> hello</p>
+
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
