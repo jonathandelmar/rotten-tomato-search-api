@@ -50,11 +50,6 @@ $keywords = array(
 
 $rottenTomatoObj = new RottenTomatoes( $rottenTomatoesConfig );
 $searchResults = $rottenTomatoObj->search( implode( ' ', $keywords ) );
-
-echo "<pre>";
-var_dump( $searchResults );
-
-// if ( $searchResults === NULL) die('Error parsing json');
 ?>
 
 <!DOCTYPE html>
@@ -63,15 +58,58 @@ var_dump( $searchResults );
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Developer Test</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <?php if ( $searchResults !== NULL ): ?>
+        <?php if ( $searchResults->total > 0 ): ?>
 
+            <div class="datagrid">
+                <h1>Rotten Tomato Movie Search</h1>
+                <h2>Search results for movies containing any of the following words: red, green, blue or yellow.</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Year</th>
+                            <th>Runtime</th>
+                        </tr>
+                    </thead>
 
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="js/script.js"></script>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                <div id="paging">
+                                    <ul>
+                                        <li><a href="#"><span>Previous</span></a></li>
+                                        <li><a href="#" class="active"><span>1</span></a></li>
+                                        <li><a href="#"><span>2</span></a></li>
+                                        <li><a href="#"><span>3</span></a></li>
+                                        <li><a href="#"><span>4</span></a></li>
+                                        <li><a href="#"><span>5</span></a></li>
+                                        <li><a href="#"><span>Next</span></a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <?php $ctr = 0;
+                            foreach( $searchResults->movies as $movie ): ?>
+                        <tr <?php if ( $ctr++ % 2 == 1 ): ?>class="alt" <?php endif; ?> >
+                            <td><?php echo $movie->title ?></td>
+                            <td><?php echo $movie->year ?></td>
+                            <td><?php echo $movie->runtime ?> minutes</td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <p>No results found</p>
+        <?php endif; ?>
+    <?php else: ?>
+    <p>Error parsing json</p>
+    <?php endif; ?>
   </body>
 </html>

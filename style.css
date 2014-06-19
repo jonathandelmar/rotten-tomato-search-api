@@ -1,0 +1,89 @@
+h1 {
+    text-align: center;
+}
+h1, h2 {
+    line-height: 1.2em;
+    padding: 0.5em;
+}
+.datagrid table {
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+}
+.datagrid {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 3px solid #A65B1A;
+    border-radius: 5px;
+    font: 12px/150% Arial,Helvetica,sans-serif;
+    margin: 0 auto;
+    overflow: hidden;
+    width: 60%;
+}
+.datagrid table td, .datagrid table th {
+    padding: 3px 10px;
+}
+.datagrid table thead th {
+    background: -moz-linear-gradient(center top , #A65B1A 5%, #7F4614 100%) repeat scroll 0 0 #A65B1A;
+    border-left: 1px solid #BF691E;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: 700;
+}
+.datagrid table thead th:first-child {
+    border: medium none;
+}
+.datagrid table tbody td {
+    border-left: 1px solid #D9CFB8;
+    color: #7F4614;
+    font-size: 12px;
+    font-weight: 400;
+}
+.datagrid table tbody .alt td {
+    background: none repeat scroll 0 0 #F0E5CC;
+    color: #7F4614;
+}
+.datagrid table tbody td:first-child {
+    border-left: medium none;
+}
+.datagrid table tbody tr:last-child td {
+    border-bottom: medium none;
+}
+.datagrid table tfoot td div {
+    background: none repeat scroll 0 0 #F0E5CC;
+    border-top: 1px solid #A65B1A;
+}
+.datagrid table tfoot td {
+    font-size: 12px;
+    padding: 0;
+}
+.datagrid table tfoot td div {
+    padding: 2px;
+}
+.datagrid table tfoot td ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+.datagrid table tfoot li {
+    display: inline;
+}
+.datagrid table tfoot li a {
+    background: -moz-linear-gradient(center top , #A65B1A 5%, #7F4614 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #A65B1A;
+    border-radius: 3px;
+    color: #FFFFFF;
+    display: inline-block;
+    margin: 1px;
+    padding: 2px 8px;
+    text-decoration: none;
+}
+.datagrid table tfoot ul.active, .datagrid table tfoot ul a:hover {
+    background: none repeat scroll 0 0 #A65B1A;
+    border-color: #7F4614;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+div.dhtmlx_window_active, div.dhx_modal_cover_dv {
+    position: fixed !important;
+}
